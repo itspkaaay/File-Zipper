@@ -40,23 +40,26 @@ class binaryHeap{
     // reorganization of tree to form a heap;
     heapify(cI){
         // cI is current index
-        let parentNode= Math.floor((cI-1)/2);
-        if(cI<=0)
+        if(cI===0)
         {
             return;
         }
-        else{
+        let parentNode= Math.floor((cI-1)/2);
+        while(cI>0)
+        {
+          
+       
             if(this.heap[parentNode][0]>= this.heap[cI][0])
             {
                 return;
             }
-            else{
-                let temp= this.heap[cI];
-                this.heap[cI]= this.heap[parentNode];
-                this.heap[parentNode]=temp;
-                this.heapify(parentNode);
-            }
+            let temp= this.heap[cI];
+            this.heap[cI]= this.heap[parentNode];
+            this.heap[parentNode]=temp;
+            cI= parentNode;
+            parentNode= Math.floor((cI-1)/2);
         }
+        
     }
 
     // get Maximum Value from heap or removal
@@ -83,40 +86,41 @@ class binaryHeap{
         let child1= 2*cI+1; //index
         let child2= 2*cI+2; //index
         let currSize= this.size();
-        if(child1>= currSize)
+        
+        while(true)
         {
-            return;
-        }
-
-        if(this.heap[child2]===undefined)
-        {
-            if(this.heap[child1][0]<=this.heap[cI][0])
+            let maxInd=-1;
+            let maxVal=-1;
+            if(child1 <currSize && this.heap[child1][0]>maxVal)
+            {
+                maxVal=this.heap[child1][0];
+                maxInd= child1;
+            }
+            if(child2<currSize && this.heap[child2][0]>maxVal)
+            {
+                maxInd= child2;
+                maxVal= this.heap[child2][0];
+            }
+            if(maxInd===-1)
             {
                 return;
             }
-            else
-            {
-                let temp= this.heap[child1];
-                this.heap[child1]=this.heap[cI];
-                this.heap[cI]=temp;
-                this.down_heapify(child2);
+
+            if(maxVal>this.heap[cI][0]){
+            let temp_dh= this.heap[maxInd];
+            this.heap[maxInd]= this.heap[cI];
+            this.heap[cI]= temp_dh;
+
+            cI= maxInd;
+            child1=2*cI+1;
+            child2=child1+1;
             }
-        }
+            else{
+                break;
+            }
 
-        let maxInd;
-        if(Math.max(this.heap[child1][0],this.heap[child2][0])===this.heap[child1][0])
-        {
-            maxInd=child1;
-        }
-        else{
-            maxInd=child2;
-        }
 
-        let temp= this.heap[maxInd];
-        this.heap[maxInd]=this.heap[cI];
-        this.heap[cI]=temp;
-        this.down_heapify(maxInd);
-
+        }
         
     };
 
@@ -127,9 +131,17 @@ class binaryHeap{
 
 let bh= new binaryHeap();
 bh.insert([1,"one"]);
+bh.insert([2,"two"]);
+bh.insert([3,"three"]);
+bh.insert([4,"four"]);
+bh.insert([5,"seven"]);
 console.log(bh.heap);
-bh.remove_max();
-console.log(bh.heap);
+
+while(bh.size()!=0)
+{
+    console.log(bh.remove_max());
+}
+
 
 
 
