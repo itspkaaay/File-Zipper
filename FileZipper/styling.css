@@ -1,0 +1,36 @@
+body{
+    height: 100%;
+}
+.row{
+    width:100%;
+    margin-left:0px;
+    margin-right:0px;
+}
+.container{
+    margin-right: 0px;
+    margin-left: 0px;
+    width:100%;
+    height:inherit;
+}
+.text_box{
+    font-size: small;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 50%;
+    border: 1px solid lightgray;
+    padding:10px;
+    align-content: center;
+    height: 650px;
+    
+}
+.myspan{
+    font-size: medium;
+    vertical-align: bottom;
+    font-weight: bolder;
+    color: red;
+    width: 100%;
+    text-align: center;
+}
+
+button{
+    margin-right: 5px;
+}
